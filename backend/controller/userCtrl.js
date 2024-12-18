@@ -174,21 +174,29 @@ const authMiddleware = async (req, res, next) => {
 };
 
 const authMiddlewareAdmin = async (req, res, next) => {
-    const tokenAdmin = req.cookies['token-admin']
-    if (!tokenAdmin) return res.status(401).json({
-        success: false,
-        message: 'Unauthorised user!',
-    })
+    const tokenAdmin = req.cookies['token-admin'];
+    if (!tokenAdmin) {
+        return res.status(401).json({
+            success: false,
+            message: 'Unauthorized: Admin token missing',
+        });
+    }
 
     try {
-        const decodeed = jwt.verify(tokenAdmin, process.env.SECRET_STR)
-        req.admin = decodeed
-        next()
+        const decoded = jwt.verify(tokenAdmin, process.env.SECRET_STR);
+        if (decoded.role !== "admin") {
+            return res.status(403).json({
+                success: false,
+                message: 'Forbidden: Admin access only',
+            });
+        }
+        req.admin = decoded; // Store admin info in the request
+        next();
     } catch (error) {
         res.status(401).json({
             success: false,
-            message: 'Unauthorised user!',
-        })
+            message: 'Unauthorized: Invalid or expired token',
+        });
     }
 };
 
