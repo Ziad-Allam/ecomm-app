@@ -13,7 +13,7 @@ function Banner() {
 
   const dispatch = useDispatch()
 
-  const { images } = useSelector((state) => state.banner.bannarImage)
+  const images = useSelector((state) => state.banner.bannarImage)
 
   useEffect(() => {
     dispatch(getBannerImages())
