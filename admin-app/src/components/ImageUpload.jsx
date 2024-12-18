@@ -37,7 +37,7 @@ function ImageUpload({ imageFile, setImageFile, uploadedImageUrl, setUploadedIma
         setImgLoadingState(true)
         const data = new FormData()
         data.append('my_file', imageFile)
-        const response = await axios.post('https://test-zmxd.vercel.app/api/admin/product/upload-image', data)
+        const response = await axios.post('https://server-zeta-murex.vercel.app/api/admin/product/upload-image', data)
         if (response?.data.success) {
             setUploadedImageUrl({ url: response.data.result.url, public_id: response.data.result.public_id })
             setImgLoadingState(false)
@@ -45,7 +45,7 @@ function ImageUpload({ imageFile, setImageFile, uploadedImageUrl, setUploadedIma
     }
 
     async function handleImageDelete(publicId, itemId, schemaType) {
-        const response = await axios.delete('https://test-zmxd.vercel.app/api/admin/product/delete-image', {
+        const response = await axios.delete('https://server-zeta-murex.vercel.app/api/admin/product/delete-image', {
             data: { public_id: publicId, itemId, schemaType }
         });
 
