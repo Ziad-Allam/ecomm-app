@@ -105,4 +105,4 @@ export const loginFormControls=[
     },
 ]
 
-export const base_url = "https://test-zmxd.vercel.app/api/";
+export const base_url = "https://server-zeta-murex.vercel.app/api/";
