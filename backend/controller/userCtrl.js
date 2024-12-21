@@ -174,6 +174,7 @@ const authMiddleware = async (req, res, next) => {
 };
 
 const authMiddlewareAdmin = async (req, res, next) => {
+    try {
     const tokenAdmin = req.cookies['token-admin'];
     if (!tokenAdmin) {
         return res.status(401).json({
@@ -182,7 +183,6 @@ const authMiddlewareAdmin = async (req, res, next) => {
         });
     }
 
-    try {
         const decoded = jwt.verify(tokenAdmin, process.env.SECRET_STR);
         if (decoded.role !== "admin") {
             return res.status(403).json({
